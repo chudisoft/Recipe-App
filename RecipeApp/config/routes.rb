@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root to: "home#index"
-  devise_for :users, controllers: {
+  devise_for :users, path: '', path_names: {
+    sign_in: 'login',
+    sign_out: 'logout'
+  }, controllers: {
     sessions: 'users/sessions'
   }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
