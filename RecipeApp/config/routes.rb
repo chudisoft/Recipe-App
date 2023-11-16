@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   # Define routes for Recipes
   resources :recipes do
     resources :foods, only: [:new, :create], controller: 'recipe_foods' # Nested route for adding food to a recipe
+    resources :recipe_foods, only: [:new, :create, :edit, :update, :destroy]
     member do
       patch 'toggle_public', to: 'recipes#toggle_public' # Route for toggling recipe public/private status
     end

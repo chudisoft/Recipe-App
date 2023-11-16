@@ -7,9 +7,10 @@
     <div class='col-md-2'>
         <% if current_user == @recipe.user %>
             <%= form_with(model: @recipe, url: toggle_public_recipe_path(@recipe), method: :patch, class: "mb-3", id: "toggle-public-form") do |form| %>
-                <div class="form-check">
-                    <%= form.check_box :public, class: "form-check-input", id: "public-checkbox" %>
-                    <%= form.label :public, class: "form-check-label" %>
+                <div class="form-check form-switch">
+                  <%= form.hidden_field :public, value: 0 %>
+                  <%= form.check_box :public, class: "form-check-input", id: "public-checkbox", checked: @recipe.public, data: { toggle: "toggle" } %>
+                  <%= form.label :public, "Public", class: "form-check-label", for: "public-checkbox" %>
                 </div>
             <% end %>
         <% end %>
@@ -21,20 +22,39 @@
   <p><%= @recipe.description %></p>
   
   <hr />
+  <div class='row col-md-12 justify-content-between mt-2 mb-2'>
+    <%
+=begin%>
+ <%= link_to "Generate Shopping List", shopping_recipe_recipe_food_path(@recipe), class: 'btn btn-outline-primary btn-sm col-md-2' %> 
+<%
+=end%>
+    <%= link_to "Add Ingredients", new_recipe_recipe_food_path(@recipe), class: 'btn btn-outline-primary btn-sm col-md-2' %>
+  </div>
   <% if @recipe_foods.any? %>
     <h2>Foods</h2>
     <table class="table">
       <thead>
         <tr>
           <th scope="col">Food Name</th>
-          <!-- Add other food attributes if needed -->
+          <th scope="col">Quantity</th>
+          <th scope="col">Value</th>
+          <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
         <% @recipe_foods.each do |recipe_food| %>
           <tr>
             <td><%= recipe_food.food.name %></td>
-            <!-- Display other food attributes associated with the recipe -->
+            <td><%= recipe_food.quantity %></td>
+            <td><%= (recipe_food.food.price * recipe_food.quantity) %></td>
+            <td>
+            <p>
+              <%= form_with(model: @recipe, url: recipe_recipe_food_path(@recipe, recipe_food), class: "d-inline", method: :delete, data: { confirm: 'Are you sure?' }) do |form| %>
+                <%= link_to "Edit", edit_recipe_recipe_food_path(@recipe, recipe_food) %> |
+                <%= form.submit 'Remove', class: 'text-danger' %>
+              <% end %>
+            </p>
+            </td>
           </tr>
         <% end %>
       </tbody>
@@ -53,4 +73,5 @@
       togglePublicForm.submit();
     });
   });
+
 </script>

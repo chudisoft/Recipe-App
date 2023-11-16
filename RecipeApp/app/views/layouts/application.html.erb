@@ -9,6 +9,8 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+     <script src="https://cdn.jsdelivr.net/npm/@rails/ujs/dist/rails-ujs.min.js"></script>
+
     <%= javascript_importmap_tags %>
   </head>
 
@@ -40,7 +42,9 @@
                 </ul>
               </li>
               <% if current_user.present? %> <!-- Check if the user is present (logged in) -->
-                <li class="nav-item"><%= link_to 'Logout', destroy_user_session_path, class: "nav-link", method: :delete %></li>
+                <li class="nav-item">
+                  <%= link_to 'Logout', destroy_user_session_path, class: "nav-link", data: {turbo_method: :delete} %>
+                </li>
               <% else %>
                 <li class="nav-item"><%= link_to 'Login', new_user_session_path, class: "nav-link" %></li>
                 <li class="nav-item"><%= link_to 'Sign Up', new_user_registration_path, class: "nav-link" %></li>
