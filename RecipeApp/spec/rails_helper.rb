@@ -60,11 +60,6 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # spec/rails_helper.rb or spec/spec_helper.rb
 
-config.before(:each, type: :system) do
-  driven_by :rack_test
-  Capybara.app_host = 'http://localhost:3000'
-end
-
   # Capybara.default_driver = :selenium_chrome
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
