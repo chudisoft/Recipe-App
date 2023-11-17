@@ -13,9 +13,16 @@
  *= require_tree .
  *= require_self
  */
-
+.public--card--container {
+  border: 1px solid black;
+  padding: 20px;
+}
  .public--card {
   display:  flex;
   justify-content: space-between;
-  border: 1px solid black;
+ }
+ .public--delete--btn {
+  border: none;
+  border-color: red;
+  padding: 20px;
  }
