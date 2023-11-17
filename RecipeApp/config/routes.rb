@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   # Define routes for Recipes
   get '/public_recipes', to: 'recipes#public_recipes', as: 'public_recipes'
-  # get '/general_shopping_list'
+  get '/general_shopping_list', to: 'shopping_list#index', as: 'general_shopping_list'
   resources :recipes do
     resources :foods, only: [:new, :create], controller: 'recipe_foods' # Nested route for adding food to a recipe
     resources :recipe_foods, only: [:new, :create, :edit, :update, :destroy]
