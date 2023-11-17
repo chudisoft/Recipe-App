@@ -43,6 +43,10 @@ class RecipesController < ApplicationController
     end
   end
 
+  def public_recipes
+    @recipes = Recipe.where(public: true)
+  end
+
   def destroy
     @recipe = Recipe.find(params[:id])
     if current_user == @recipe.user # Ensure the current user owns the recipe
