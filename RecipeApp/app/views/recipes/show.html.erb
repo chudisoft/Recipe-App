@@ -23,11 +23,7 @@
   
   <hr />
   <div class='row col-md-12 justify-content-between mt-2 mb-2'>
-    <%
-=begin%>
- <%= link_to "Generate Shopping List", shopping_recipe_recipe_food_path(@recipe), class: 'btn btn-outline-primary btn-sm col-md-2' %> 
-<%
-=end%>
+ <%= link_to "Generate Shopping List", new_recipe_recipe_food_path(@recipe), class: 'btn btn-outline-primary btn-sm col-md-2' %>
   <% if current_user == @recipe.user %>
     <%= link_to "Add Ingredients", new_recipe_recipe_food_path(@recipe), class: 'btn btn-outline-primary btn-sm col-md-2' %>
   <% end %>
