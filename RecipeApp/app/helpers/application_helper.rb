@@ -7,4 +7,7 @@ module ApplicationHelper
       sum += item.quantity * item.food.price
     end
   end
+  def shopping_value(food)
+    food.food_remnant.abs * food.price
+  end
 end
