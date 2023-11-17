@@ -5,7 +5,10 @@ class RecipeFoodsController < ApplicationController
   def new
     @recipe = Recipe.find(params[:recipe_id])
     @recipe_food = @recipe.recipe_foods.build
-    @foods = Food.all # Fetch all available foods
+    @foods = current_user.foods.select do |food|
+     recipe_food = food.recipe_foods.select { |recipe_food| recipe_food.recipe == @recipe }
+     recipe_food.empty?
+    end
   end
 
   def create
