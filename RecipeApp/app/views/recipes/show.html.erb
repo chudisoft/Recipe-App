@@ -28,7 +28,9 @@
  <%= link_to "Generate Shopping List", shopping_recipe_recipe_food_path(@recipe), class: 'btn btn-outline-primary btn-sm col-md-2' %> 
 <%
 =end%>
+  <% if current_user == @recipe.user %>
     <%= link_to "Add Ingredients", new_recipe_recipe_food_path(@recipe), class: 'btn btn-outline-primary btn-sm col-md-2' %>
+  <% end %>
   </div>
   <% if @recipe_foods.any? %>
     <h2>Foods</h2>
