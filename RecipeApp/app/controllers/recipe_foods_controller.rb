@@ -1,11 +1,14 @@
 class RecipeFoodsController < ApplicationController
   before_action :set_recipe
-  before_action :set_recipe_food, only: [:edit, :update, :destroy]
+  before_action :set_recipe_food, only: %i[edit update destroy]
 
   def new
     @recipe = Recipe.find(params[:recipe_id])
     @recipe_food = @recipe.recipe_foods.build
-    @foods = Food.all # Fetch all available foods
+    @foods = current_user.foods.select do |food|
+      recipe_foods = food.recipe_foods.select { |recipe_food| recipe_food.recipe == @recipe }
+      recipe_foods.empty?
+    end
   end
 
   def create

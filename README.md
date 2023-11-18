@@ -146,6 +146,13 @@ bundle exec rspec
 - Twitter: [@twitterhandle](https://twitter.com/chrisuduekwe)
 - LinkedIn: [LinkedIn](https://linkedin.com/in/christopher-uduekwe)
 
+
+👤 **Akorede**
+
+- GitHub: [@Akorede](https://github.com/Akorede3133)
+- Twitter: [@Akorede](https://twitter.com/SaheedAkorede7)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/akorede)
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->

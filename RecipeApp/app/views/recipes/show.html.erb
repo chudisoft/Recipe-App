@@ -23,12 +23,10 @@
   
   <hr />
   <div class='row col-md-12 justify-content-between mt-2 mb-2'>
-    <%
-=begin%>
- <%= link_to "Generate Shopping List", shopping_recipe_recipe_food_path(@recipe), class: 'btn btn-outline-primary btn-sm col-md-2' %> 
-<%
-=end%>
+ <%= link_to "Generate Shopping List", general_shopping_list_path, class: 'btn btn-outline-primary btn-sm col-md-2' %>
+  <% if current_user == @recipe.user %>
     <%= link_to "Add Ingredients", new_recipe_recipe_food_path(@recipe), class: 'btn btn-outline-primary btn-sm col-md-2' %>
+  <% end %>
   </div>
   <% if @recipe_foods.any? %>
     <h2>Foods</h2>
@@ -38,7 +36,9 @@
           <th scope="col">Food Name</th>
           <th scope="col">Quantity</th>
           <th scope="col">Value</th>
-          <th scope="col">Actions</th>
+          <% if current_user === @recipe.user %>
+            <th scope="col">Actions</th>
+          <% end %>
         </tr>
       </thead>
       <tbody>
@@ -49,9 +49,11 @@
             <td><%= (recipe_food.food.price * recipe_food.quantity) %></td>
             <td>
             <p>
-              <%= form_with(model: @recipe, url: recipe_recipe_food_path(@recipe, recipe_food), class: "d-inline", method: :delete, data: { confirm: 'Are you sure?' }) do |form| %>
-                <%= link_to "Edit", edit_recipe_recipe_food_path(@recipe, recipe_food) %> |
-                <%= form.submit 'Remove', class: 'text-danger' %>
+            <% if current_user === @recipe.user %>
+                <%= form_with(model: @recipe, url: recipe_recipe_food_path(@recipe, recipe_food), class: "d-inline", method: :delete, data: { confirm: 'Are you sure?' }) do |form| %>
+                  <%= link_to "Edit", edit_recipe_recipe_food_path(@recipe, recipe_food) %> |
+                  <%= form.submit 'Remove', class: 'text-danger' %>
+                <% end %>
               <% end %>
             </p>
             </td>
