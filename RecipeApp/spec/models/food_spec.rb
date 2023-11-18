@@ -9,13 +9,13 @@ RSpec.describe 'Food', type: :model do
   before {user.save}
   before { food.save }
 
-  context "food is valid" do
+  context "validity" do
     it 'is valid when all attributes are present' do
       expect(food).to be_valid
     end
   end
 
-  context "is not valid" do
+  context "invalidity" do
     it 'is not valid when name is not present' do
       food.name = nil
       expect(food).not_to be_valid
