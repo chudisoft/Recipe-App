@@ -2,13 +2,13 @@ require 'rails_helper'
 
 RSpec.describe 'Food index', type: :feature do
   Rails.application.routes.default_url_options[:host] = 'localhost:3000'
-  let(:user) { User.new(name: 'example', email: 'user@example.com', password: 'password',) }
-  let(:food) { Food.new(name: 'Flour', measurement_unit: 'grams', price: 2, quantity: 10, user: user) }
- 
-  before {user.save}
+  let(:user) { User.new(name: 'example', email: 'user@example.com', password: 'password') }
+  let(:food) { Food.new(name: 'Flour', measurement_unit: 'grams', price: 2, quantity: 10, user:) }
+
+  before { user.save }
   before { food.save }
 
-  before (:each) do
+  before(:each) do
     visit new_user_session_path
     fill_in 'Email', with: 'user@example.com'
     fill_in 'Password', with: 'password'
@@ -19,7 +19,7 @@ RSpec.describe 'Food index', type: :feature do
   describe 'food index' do
     it 'shows a list of foods' do
       expect(page).to have_content('Your Foods')
-      foods = user.foods.each do |food|
+      user.foods.each do |food|
         expect(page).to have_content(food.name)
       end
     end
