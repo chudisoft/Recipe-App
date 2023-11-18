@@ -46,7 +46,7 @@
               </li>
               <% if current_user.present? %> <!-- Check if the user is present (logged in) -->
                 <li class="nav-item">
-                  <%= button_to 'Logout', destroy_user_session_path, class: "nav-link", method: :delete %>
+                 <li class="nav-item"><%= button_to 'Logout', destroy_user_session_path, method: :delete, class: "nav-link logout--btn" %></li>
                 </li>
               <% else %>
                 <li class="nav-item"><%= link_to 'Login', new_user_session_path, class: "nav-link" %></li>

@@ -26,3 +26,8 @@
   border-color: red;
   padding: 20px;
  }
+ .logout--btn {
+  border: none;
+  background-color: inherit;
+  color: rgba(255, 255, 255, 0.55);
+ }
