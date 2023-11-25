@@ -1,0 +1,38 @@
+<h1>Your Foods</h1>
+
+<%= link_to 'Add Food', new_food_path, class: 'btn btn-primary mb-3 float-end' %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Measurement Unit</th>
+      <th scope="col">Unit Price</th>
+      <%
+=begin%>
+ <th scope="col">Quantity</th> 
+<%
+=end%>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @foods.each do |food| %>
+      <tr>
+        <td><%= food.name %></td>
+        <td><%= food.measurement_unit %></td>
+        <td>$<%= number_with_precision(food.price, precision: 2) %></td>
+        <%
+=begin%>
+ <td><%= food.quantity %></td> 
+<%
+=end%>
+        <td>
+            <%= form_with(model: food, url: food_path(food), method: :delete, data: { confirm: 'Are you sure?' }) do |form| %>
+                <%= form.submit 'Delete', class: 'btn btn-danger btn-sm' %>
+            <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

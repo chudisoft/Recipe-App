@@ -1,0 +1,79 @@
+<div class="container mt-4">
+  <h1 class='text-center'><%= @recipe.name %></h1>
+  <div class='row justify-content-between'>
+    <div class='col-md-4'>
+        Preparation time: <%= @recipe.preparation_time %> hours
+    </div>
+    <div class='col-md-2'>
+        <% if current_user == @recipe.user %>
+            <%= form_with(model: @recipe, url: toggle_public_recipe_path(@recipe), method: :patch, class: "mb-3", id: "toggle-public-form") do |form| %>
+                <div class="form-check form-switch">
+                  <%= form.hidden_field :public, value: 0 %>
+                  <%= form.check_box :public, class: "form-check-input", id: "public-checkbox", checked: @recipe.public, data: { toggle: "toggle" } %>
+                  <%= form.label :public, "Public", class: "form-check-label", for: "public-checkbox" %>
+                </div>
+            <% end %>
+        <% end %>
+    </div>
+    <div class='col-md-12'>
+        Cooking time: <%= @recipe.cooking_time %> hours
+    </div>
+  </div>
+  <p><%= @recipe.description %></p>
+  
+  <hr />
+  <div class='row col-md-12 justify-content-between mt-2 mb-2'>
+ <%= link_to "Generate Shopping List", general_shopping_list_path, class: 'btn btn-outline-primary btn-sm col-md-2' %>
+  <% if current_user == @recipe.user %>
+    <%= link_to "Add Ingredients", new_recipe_recipe_food_path(@recipe), class: 'btn btn-outline-primary btn-sm col-md-2' %>
+  <% end %>
+  </div>
+  <% if @recipe_foods.any? %>
+    <h2>Foods</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Food Name</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Value</th>
+          <% if current_user === @recipe.user %>
+            <th scope="col">Actions</th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @recipe_foods.each do |recipe_food| %>
+          <tr>
+            <td><%= recipe_food.food.name %></td>
+            <td><%= recipe_food.quantity %></td>
+            <td><%= (recipe_food.food.price * recipe_food.quantity) %></td>
+            <td>
+            <p>
+            <% if current_user === @recipe.user %>
+                <%= form_with(model: @recipe, url: recipe_recipe_food_path(@recipe, recipe_food), class: "d-inline", method: :delete, data: { confirm: 'Are you sure?' }) do |form| %>
+                  <%= link_to "Edit", edit_recipe_recipe_food_path(@recipe, recipe_food) %> |
+                  <%= form.submit 'Remove', class: 'text-danger' %>
+                <% end %>
+              <% end %>
+            </p>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No foods associated with this recipe.</p>
+  <% end %>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const publicCheckbox = document.getElementById('public-checkbox');
+    const togglePublicForm = document.getElementById('toggle-public-form');
+
+    publicCheckbox.addEventListener('change', function() {
+      togglePublicForm.submit();
+    });
+  });
+
+</script>
